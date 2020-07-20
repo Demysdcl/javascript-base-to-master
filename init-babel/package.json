@@ -1,0 +1,16 @@
+{
+  "name": "init-babel",
+  "version": "1.0.0",
+  "description": "first babel configuration",
+  "main": "index.js",
+  "author": "Demys Lima",
+  "license": "MIT",
+  "scripts": {
+    "babel": "babel ./main.js -o ./bundle.js --presets=@babel/env -w"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4"
+  }
+}
