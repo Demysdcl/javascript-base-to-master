@@ -7,31 +7,22 @@
       <h1 class="text-center my-3">System access</h1>
       <p class="text-center lead">Create your count or login</p>
 
+      <%- include('includes/messages') %>
+
       <div class="row">
         <div class="col-lg">
           <h4>Create your count</h4>
+
           <form action="/login/register" method="POST">
-            <%- include('includes/csrf'); %> 
+            <%- include('includes/csrf'); %>
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input
-                name="email"
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
+              <input name="email" type="email" class="form-control" />
             </div>
 
             <div class="form-group">
               <label for="exampleInputEmail1">Password</label>
-              <input
-                name="password"
-                type="password"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="passwordHelp"
-              />
+              <input name="password" type="password" class="form-control" />
             </div>
 
             <button type="submit" class="btn btn-primary">Create</button>
@@ -44,24 +35,12 @@
             <%- include('includes/csrf'); %>
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input
-                name="email"
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
+              <input name="email" type="email" class="form-control" />
             </div>
 
             <div class="form-group">
               <label for="exampleInputEmail1">Password</label>
-              <input
-                name="password"
-                type="password"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="passwordHelp"
-              />
+              <input name="password" type="password" class="form-control" />
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>

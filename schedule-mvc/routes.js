@@ -8,5 +8,7 @@ route.get('/', homeController.paginaInicial);
 route.post('/', homeController.trataPost);
 
 route.get('/login', loginController.index)
+route.post('/login/register', loginController.register)
+route.post('/login/signin', loginController.signin)
 
 module.exports = route;
