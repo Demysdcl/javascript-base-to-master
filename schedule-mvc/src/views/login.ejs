@@ -1,0 +1,76 @@
+<%- include('includes/head'); %> <%- include('includes/nav'); %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center my-3">System access</h1>
+      <p class="text-center lead">Create your count or login</p>
+
+      <div class="row">
+        <div class="col-lg">
+          <h4>Create your count</h4>
+          <form action="/login/register" method="POST">
+            <%- include('includes/csrf'); %> 
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input
+                name="email"
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Password</label>
+              <input
+                name="password"
+                type="password"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="passwordHelp"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+          </form>
+        </div>
+
+        <div class="col-lg">
+          <h4>Login</h4>
+          <form action="/login/signin" method="POST">
+            <%- include('includes/csrf'); %>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input
+                name="email"
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Password</label>
+              <input
+                name="password"
+                type="password"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="passwordHelp"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer'); %>
