@@ -1,25 +1,30 @@
 <%- include('includes/head'); %> <%- include('includes/nav'); %>
 
-
 <div class="container">
   <div class="row">
     <div class="col-lg-2"></div>
     <div class="col-lg-8 my-3">
-
       <h1 class="text-center my-3">Schedule</h1>
       <p class="text-center lead">Contacts above</p>
 
       <div class="responsive-table">
+        <% if (list.length) {%>
         <table class="table my-3">
+          <% list.forEach(item => { %>
           <tr>
-            <td>Demys</td>
-            <td>Lima</td>
-            <td>1584894949894</td>
-            <td>demysdcl@gmail.com</td>
+            <td><%= item.name %></td>
+            <td><%= item.lastname %></td>
+            <td><%= item.phone %></td>
+            <td><%= item.email %></td>
           </tr>
+          <% }) %>
         </table>
-      </div>      
-
+        <% } else { %> 
+          <p> 
+            <h5>Any contact was added</h5>  
+          </p>  
+        <% } %>
+      </div>
     </div>
     <div class="col-lg-2"></div>
   </div>
