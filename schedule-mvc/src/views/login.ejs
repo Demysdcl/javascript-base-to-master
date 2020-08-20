@@ -10,10 +10,10 @@
       <%- include('includes/messages') %>
 
       <div class="row">
-        <div class="col-lg">
+        <div class="col-lg my-5">
           <h4>Create your count</h4>
 
-          <form action="/login/register" method="POST">
+          <form class="form-register"  action="/login/register" method="POST">
             <%- include('includes/csrf'); %>
             <div class="form-group">
               <label>Email address</label>
@@ -29,10 +29,12 @@
           </form>
         </div>
 
-        <div class="col-lg">
+        <div class="col-lg my-5">
           <h4>Login</h4>
-          <form action="/login/signin" method="POST">
+          <form class="form-login" action="/login/signin" method="POST">
+            
             <%- include('includes/csrf'); %>
+
             <div class="form-group">
               <label>Email address</label>
               <input name="email" type="email" class="form-control" />
