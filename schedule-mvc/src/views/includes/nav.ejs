@@ -16,8 +16,8 @@
     <ul class="navbar-nav ml-auto">
 
       <li class="nav-item">
-        <a class="nav-link" href=<%= user ? "/login/logout" : "/login" %>>
-          <%= user ?  "Logout": "Login" %>
+        <a class="nav-link" href="/">
+          Home 
         </a>
       </li>
 
@@ -28,8 +28,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/">
-          Home 
+        <a class="nav-link" href=<%= user ? "/login/logout" : "/login" %>>
+          <%= user ?  "Logout": "Login" %>
         </a>
       </li>
       

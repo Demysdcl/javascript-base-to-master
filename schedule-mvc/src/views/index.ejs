@@ -16,6 +16,12 @@
             <td><%= item.lastname %></td>
             <td><%= item.phone %></td>
             <td><%= item.email %></td>
+            <td>
+              <a href="/contact/<%=item._id %>">Edit</a>
+            </td>
+            <td>
+              <a class="text-danger" href="/contact/delete/<%=item._id %>">Delete</a>
+            </td>
           </tr>
           <% }) %>
         </table>
