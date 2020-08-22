@@ -1,0 +1,9 @@
+class HomeCOntroller {
+  index(req, res) {
+    res.json({
+      isAllRight: true,
+    });
+  }
+}
+
+export default new HomeCOntroller();
