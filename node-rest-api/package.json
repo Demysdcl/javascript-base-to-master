@@ -14,9 +14,14 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0",
     "sucrase": "^3.15.0"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mariadb": "^2.4.2",
+    "sequelize": "^6.3.4"
   }
 }
