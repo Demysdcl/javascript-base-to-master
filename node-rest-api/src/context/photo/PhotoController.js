@@ -1,6 +1,9 @@
 class HomeController {
   store(req, res) {
-    res.json('The photo is stored');
+    res.json({
+      status: 'saved',
+      file: req.file,
+    });
   }
 }
 
