@@ -1,0 +1,75 @@
+<%- include('includes/head'); %> <%- include('includes/nav'); %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center my-3">Contact</h1>
+      <p class="text-center lead"><%= contact._id ? 'Edit the ' : 'Create a new ' %>   contact</p>
+
+      <div class="row">
+        <div class="col-lg">
+          <h4>Create your contact</h4>
+
+          <%- include('includes/messages') %>
+
+          <% if(!contact._id) { %>
+            <form action="/contact" method="POST">
+          <% } else { %> 
+            <form action="/contact/update/<%= contact._id %>" method="POST">
+          <% } %> 
+    
+            <%- include('includes/csrf'); %>
+
+            <div class="form-group">
+              <input type="hidden" name="_id" value="<%= contact._id %>" />
+
+              <label>Name</label>
+              <input
+                name="name"
+                value="<%= contact.name %>"
+                type="text"
+                class="form-control"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Lastname</label>
+              <input
+                name="lastname"
+                value="<%= contact.lastname %>"
+                type="text"
+                class="form-control"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Email address</label>
+              <input
+                name="email"
+                type="email"
+                value="<%= contact.email %>"
+                class="form-control"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Phone number</label>
+              <input
+                name="phone"
+                type="text"
+                value="<%= contact.phone %>"
+                class="form-control"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary"><%= contact._id ? 'Edit' : 'Create' %></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer'); %>
