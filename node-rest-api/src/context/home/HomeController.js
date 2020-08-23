@@ -1,4 +1,4 @@
-class HomeCOntroller {
+class HomeController {
   index(req, res) {
     res.json({
       isAllRight: true,
@@ -6,4 +6,4 @@ class HomeCOntroller {
   }
 }
 
-export default new HomeCOntroller();
+export default new HomeController();

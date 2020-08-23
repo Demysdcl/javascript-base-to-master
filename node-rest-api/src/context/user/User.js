@@ -25,10 +25,6 @@ export default class User extends Model {
       password: {
         type: Sequelize.STRING,
         default: '',
-      },
-      vpassword: {
-        type: Sequelize.VIRTUAL,
-        default: '',
         validate: {
           len: {
             args: [6, 80],
@@ -43,10 +39,14 @@ export default class User extends Model {
     this.addHook('beforeSave', async (user) => {
       if (user.vpassword) {
         // eslint-disable-next-line no-param-reassign
-        user.password = await bcrypt.hash(user.vpassword, 8);
+        user.password = await bcrypt.hash(user.password, 8);
       }
     });
 
     return this;
+  }
+
+  passwordIsValid(password) {
+    return bcrypt.compare(password, this.password);
   }
 }
