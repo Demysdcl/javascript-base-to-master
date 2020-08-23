@@ -3,7 +3,8 @@ import User from './User';
 class UserController {
   async store(req, res) {
     try {
-      return res.json(await User.create(req.body));
+      const { id, name, email } = await User.create(req.body);
+      return res.json({ id, name, email });
     } catch (error) {
       return res.status(400).json({
         errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
@@ -13,7 +14,7 @@ class UserController {
 
   async index(req, res) {
     try {
-      return res.json(await User.findAll());
+      return res.json(await User.findAll({ attributes: ['id', 'name', 'email'] }));
     } catch (error) {
       return res.status(400).json({
         errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
@@ -23,7 +24,8 @@ class UserController {
 
   async show(req, res) {
     try {
-      return res.json(await User.findByPk(req.params.id));
+      const { id, name, email } = await User.findByPk(req.userId);
+      return res.json({ id, name, email });
     } catch (error) {
       return res.status(400).json({
         errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
@@ -33,19 +35,14 @@ class UserController {
 
   async update(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400)
-          .json({ errors: ['the id must be sent'] });
-      }
-
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400)
           .json({ errors: ['User not found'] });
       }
-
-      return res.json(await user.update(req.body));
+      const { id, name, email } = await user.update(req.body);
+      return res.json({ id, name, email });
     } catch (error) {
       console.error(error);
       return res.status(400).json({
@@ -56,12 +53,7 @@ class UserController {
 
   async delete(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400)
-          .json({ errors: ['the id must be sent'] });
-      }
-
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
       if (!user) {
         return res.status(400)
           .json({ errors: ['User not found'] });

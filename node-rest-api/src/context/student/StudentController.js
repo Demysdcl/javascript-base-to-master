@@ -16,14 +16,23 @@ class StudentController {
       return res.json(await Student.findAll());
     } catch (error) {
       return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
+        errors: error.errors
+          ? error.errors.map((err) => err.message)
+          : 'We had an internal problem',
       });
     }
   }
 
   async show(req, res) {
     try {
-      return res.json(await Student.findByPk(req.params.id));
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['You must inform an ID'],
+        });
+      }
+
+      return res.json(await Student.findByPk(id));
     } catch (error) {
       return res.status(400).json({
         errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
@@ -33,12 +42,14 @@ class StudentController {
 
   async update(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400)
-          .json({ errors: ['the id must be sent'] });
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['You must inform an ID'],
+        });
       }
 
-      const student = await Student.findByPk(req.params.id);
+      const student = await Student.findByPk(id);
 
       if (!student) {
         return res.status(400)
@@ -56,12 +67,13 @@ class StudentController {
 
   async delete(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400)
-          .json({ errors: ['the id must be sent'] });
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).json({
+          errors: ['You must inform an ID'],
+        });
       }
-
-      const student = await Student.findByPk(req.params.id);
+      const student = await Student.findByPk(id);
       if (!student) {
         return res.status(400)
           .json({ errors: ['Student not found'] });
@@ -69,7 +81,7 @@ class StudentController {
 
       await student.destroy();
 
-      return res.json('Student was deleted');
+      return res.json(`The student ${student.firstname} was deleted`);
     } catch (error) {
       return res.status(400).json({
         errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',

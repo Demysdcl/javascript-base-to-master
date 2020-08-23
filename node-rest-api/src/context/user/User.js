@@ -6,7 +6,7 @@ export default class User extends Model {
     super.init({
       name: {
         type: Sequelize.STRING,
-        default: '',
+        defaultValue: '',
         validate: {
           len: {
             args: [2, 255],
@@ -15,7 +15,7 @@ export default class User extends Model {
       },
       email: {
         type: Sequelize.STRING,
-        default: '',
+        defaultValue: '',
         validate: {
           isEmail: {
             msg: 'Invalid e-mail',
@@ -24,7 +24,7 @@ export default class User extends Model {
       },
       password: {
         type: Sequelize.STRING,
-        default: '',
+        defaultValue: '',
         validate: {
           len: {
             args: [6, 80],
