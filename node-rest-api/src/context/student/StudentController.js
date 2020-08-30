@@ -1,91 +1,46 @@
-import Student from './Student';
+import studentService from './StudentService';
+import extractErrorMessage from '../../utilities/extractedErrorMessage';
+import errorResponse from '../../utilities/errorResponse';
 
 class StudentController {
   async store(req, res) {
     try {
-      return res.json(await Student.create(req.body));
+      return res.json(await studentService.create(req.body));
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
-  async index(req, res) {
+  async index(_, res) {
     try {
-      return res.json(await Student.findAll());
+      return res.json(await studentService.findAll());
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors
-          ? error.errors.map((err) => err.message)
-          : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async show(req, res) {
     try {
-      const { id } = req.params;
-      if (!id) {
-        return res.status(400).json({
-          errors: ['You must inform an ID'],
-        });
-      }
-
-      return res.json(await Student.findByPk(id));
+      return res.json(await studentService.findByPk(req.params.id));
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async update(req, res) {
     try {
-      const { id } = req.params;
-      if (!id) {
-        return res.status(400).json({
-          errors: ['You must inform an ID'],
-        });
-      }
-
-      const student = await Student.findByPk(id);
-
-      if (!student) {
-        return res.status(400)
-          .json({ errors: ['Student not found'] });
-      }
-
-      return res.json(await student.update(req.body));
+      return res.json(await studentService.update(req.params.id, req.body));
     } catch (error) {
-      console.error(error);
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async delete(req, res) {
     try {
-      const { id } = req.params;
-      if (!id) {
-        return res.status(400).json({
-          errors: ['You must inform an ID'],
-        });
-      }
-      const student = await Student.findByPk(id);
-      if (!student) {
-        return res.status(400)
-          .json({ errors: ['Student not found'] });
-      }
-
-      await student.destroy();
-
-      return res.json(`The student ${student.firstname} was deleted`);
+      await studentService.destroy(req.params.id);
+      return res.json(`The student ${req.params.id} was deleted`);
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 }
