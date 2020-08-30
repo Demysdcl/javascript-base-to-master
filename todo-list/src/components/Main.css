@@ -1,0 +1,49 @@
+.main {
+  background-color: #fff;
+  padding: 30px;
+  margin: 50px auto;
+  max-width: 500px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.main h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form input[type="text"] {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  min-width: 80%;
+}
+
+.form button[type="submit"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  height: 40px;
+  width: 40px;
+  background-color: #f04c64;
+  color: #fff;
+  transition: transform 100ms;
+}
+
+.form button[type="submit"]:hover {
+  opacity: 0.5;
+}
+
+.form button[type="submit"]:active {
+  transform: scale(0.95, 0.95);
+}
+
