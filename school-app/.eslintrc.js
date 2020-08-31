@@ -1,3 +1,5 @@
+const { resolve } = require('path')
+
 module.exports = {
   env: {
     browser: true,
@@ -20,4 +22,14 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', 'src']
+        ],
+        extensions: ['.js', '.jsx', '.css']
+      }
+    }
+  }
 };
