@@ -30,7 +30,7 @@ class TokenController {
       },
     );
 
-    return res.json({ token });
+    return res.json({ token, user: { id: user.id, email, name: user.name } });
   }
 }
 
