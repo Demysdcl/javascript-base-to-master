@@ -1,7 +1,7 @@
 class HomeController {
   index(req, res) {
     res.json({
-      isAllRight: true,
+      welcome: 'Welcome to the APP',
     });
   }
 }

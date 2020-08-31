@@ -1,71 +1,44 @@
-import User from './User';
+import errorResponse from '../../utilities/errorResponse';
+import userService from './UserService';
 
 class UserController {
   async store(req, res) {
     try {
-      const { id, name, email } = await User.create(req.body);
-      return res.json({ id, name, email });
+      return res.json(await userService.create(req.body));
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async index(req, res) {
     try {
-      return res.json(await User.findAll({ attributes: ['id', 'name', 'email'] }));
+      return res.json(await userService.findAll());
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async show(req, res) {
     try {
-      const { id, name, email } = await User.findByPk(req.userId);
-      return res.json({ id, name, email });
+      return res.json(await userService.findByPk(req.userId));
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async update(req, res) {
     try {
-      const user = await User.findByPk(req.userId);
-
-      if (!user) {
-        return res.status(400)
-          .json({ errors: ['User not found'] });
-      }
-      const { id, name, email } = await user.update(req.body);
-      return res.json({ id, name, email });
+      return res.json(await userService.update(req.userId, req.body));
     } catch (error) {
-      console.error(error);
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 
   async delete(req, res) {
     try {
-      const user = await User.findByPk(req.userId);
-      if (!user) {
-        return res.status(400)
-          .json({ errors: ['User not found'] });
-      }
-
-      await user.destroy();
-
-      return res.json('User was deleted');
+      return res.json(await userService.delete(req.userId));
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors ? error.errors.map((err) => err.message) : 'We had an internal problem',
-      });
+      return errorResponse(res, error);
     }
   }
 }
