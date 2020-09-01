@@ -1,12 +1,12 @@
 import { Container } from '@/styles/GlobalStyle';
 import React from 'react';
 
-function Login() {
+function Register() {
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Register</h1>
     </Container>
   );
 }
 
-export default Login;
+export default Register;

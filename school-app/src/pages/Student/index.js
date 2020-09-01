@@ -1,12 +1,10 @@
 import { Container } from '@/styles/GlobalStyle';
 import React from 'react';
 
-function Login() {
+export default function Student() {
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Student</h1>
     </Container>
   );
 }
-
-export default Login;
