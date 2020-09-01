@@ -1,3 +1,5 @@
+const { resolve } = require('path')
+
 module.exports = {
   env: {
     browser: true,
@@ -17,7 +19,18 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': 0,
     'import/prefer-default-export': 0,
+    'import/no-unresolved': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', 'src']
+        ],
+        extensions: ['.js', '.jsx', '.css']
+      }
+    }
+  }
 };
