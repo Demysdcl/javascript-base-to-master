@@ -1,8 +1,11 @@
 import { Container } from '@/styles/GlobalStyle';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Title } from './styled';
+// import axios from '@/services/axios'
 
 function Login() {
+  useEffect(() => {}, []);
+
   return (
     <Container>
       <Title>
