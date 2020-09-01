@@ -1,10 +1,18 @@
 import { Container } from '@/styles/GlobalStyle';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Title } from './styled';
 // import axios from '@/services/axios'
 
 function Login() {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: 'CLICKED_BUTTON',
+    });
+  };
 
   return (
     <Container>
@@ -16,7 +24,9 @@ function Login() {
         Eu ea nisi est excepteur non quis cillum deserunt commodo commodo
         laboris.
       </p>
-      <button type="submit">Send</button>
+      <button type="button" onClick={handleClick}>
+        Send
+      </button>
     </Container>
   );
 }
