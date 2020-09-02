@@ -22,7 +22,7 @@ export default function Students() {
 
       <StudentContainer>
         {students.map((student) => (
-          <ProfilePicture>
+          <ProfilePicture key={student.id}>
             {student.Photos.length ? (
               <img alt={student.firstname} src={student.Photos[0].url} />
             ) : (
