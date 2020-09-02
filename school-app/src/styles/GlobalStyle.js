@@ -36,6 +36,15 @@ export default createGlobalStyle`
     padding: 10px 20px;
     border-radius: 4px;
     font-weight: 700;
+    transition: all 0.3s;
+
+    &:hover {
+      filter: brightness(75%);
+    }
+
+    &:active {
+      transform: scale(0.97, 0.97);
+    }
   }
 
   a {
