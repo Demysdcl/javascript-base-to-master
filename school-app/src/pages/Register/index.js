@@ -1,5 +1,6 @@
 import LabelInput from '@/components/LabelInput';
 import axios from '@/services/axios';
+import history from '@/services/history';
 import { Container } from '@/styles/GlobalStyle';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -29,7 +30,7 @@ function Register() {
       toast.error('The e-mail is invalid');
     }
 
-    return hasError;
+    return !hasError;
   };
 
   const handleSubmit = async (e) => {
@@ -37,12 +38,18 @@ function Register() {
     if (!isValid()) return;
 
     try {
-      const { data } = await axios.post('/users', { name, password, email });
-      toast.success(`Created count successfully to ${data.name} `);
+      const response = await axios.post('/users', { name, password, email });
+      toast.success(`Created count successfully to ${response.data.name} `);
+      history.push('/login');
     } catch (error) {
-      error.errors.forEach((element) => {
-        toast.error(element);
-      });
+      if (error.response) {
+        const { errors } = error.response.data;
+        errors.forEach((item) => {
+          toast.error(item);
+        });
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 

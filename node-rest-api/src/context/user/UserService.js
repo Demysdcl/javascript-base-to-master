@@ -2,6 +2,12 @@ import User from './User';
 
 class UserService {
   async create(user) {
+    const foundUserByEmail = await User.findOne({ where: { email: user.email } });
+
+    if (foundUserByEmail) {
+      throw new Error('E-mail already exists!');
+    }
+
     const { id, name, email } = await User.create(user);
     return { id, name, email };
   }

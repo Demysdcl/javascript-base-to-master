@@ -24,6 +24,7 @@ SaRoute.defaultProps = {
 };
 
 SaRoute.propTypes = {
-  component: PropTypes.oneOfType(PropTypes.element, PropTypes.func).isRequired,
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    .isRequired,
   isClosed: PropTypes.bool,
 };

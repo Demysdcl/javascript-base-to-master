@@ -33,7 +33,10 @@ LabelInput.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  value: PropTypes.oneOf(PropTypes.number, PropTypes.string, PropTypes.bool)
-    .isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
   setValue: PropTypes.func.isRequired,
 };
