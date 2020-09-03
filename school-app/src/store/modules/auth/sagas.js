@@ -29,6 +29,7 @@ function* createUser({ payload }) {
     const response = yield call(axios.post, '/users', payload);
     yield put(actions.createUserSuccess({ ...response.data }));
     store.dispatch(setLoading(false));
+    toast.success('Count created successfully');
     history.push('/login');
   } catch (error) {
     store.dispatch(setLoading(false));
@@ -46,6 +47,7 @@ function* updateUser({ payload }) {
     const response = yield call(axios.put, '/users', payload);
     yield put(actions.updateUserSuccess({ ...response.data }));
     store.dispatch(setLoading(false));
+    toast.success('Count updated successfully');
     history.push('/');
   } catch (error) {
     store.dispatch(setLoading(false));
@@ -53,6 +55,8 @@ function* updateUser({ payload }) {
     errors.forEach((item) => {
       toast.error(item);
     });
+    toast.error('You need to login again');
+    history.push('/login');
     yield put(actions.updateUserFailure());
   }
 }

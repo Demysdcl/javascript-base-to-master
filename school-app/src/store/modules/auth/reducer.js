@@ -21,8 +21,6 @@ export default function (state = initialState, action) {
     case types.UPDATE_USER_SUCCESS:
       return { ...state, user: action.payload };
     case types.UPDATE_USER_FAILURE:
-      return { ...state };
-
     case types.GET_TOKEN_FAILURE:
     case types.CREATE_USER_FAILURE:
       return { ...initialState };

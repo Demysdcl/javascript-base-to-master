@@ -38,7 +38,7 @@ function Register() {
       toast.error('The password must have between 2 and 80 characters');
     }
 
-    if (!isEmail(email)) {
+    if (!email || !isEmail(email)) {
       hasError = true;
       toast.error('The e-mail is invalid');
     }

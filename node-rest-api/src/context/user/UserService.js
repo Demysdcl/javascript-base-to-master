@@ -34,7 +34,7 @@ class UserService {
     }
 
     const { id, name, email } = await foundUser.update(user);
-    console.log(id, name, email);
+
     return { id, name, email };
   }
 
