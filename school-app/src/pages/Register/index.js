@@ -1,20 +1,29 @@
 import LabelInput from '@/components/LabelInput';
-import axios from '@/services/axios';
-import history from '@/services/history';
-import { setLoading } from '@/store/modules/loading/actions';
+import {
+  createUserRequest,
+  updateUserRequest
+} from '@/store/modules/auth/actions';
 import { Container } from '@/styles/GlobalStyle';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 import { Form } from './styled';
 
 function Register() {
   const dispatch = useDispatch();
+  const id = useSelector(({ auth }) => auth.user.id);
+  const nameStored = useSelector(({ auth }) => auth.user.name);
+  const emailStored = useSelector(({ auth }) => auth.user.email);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    setName(nameStored);
+    setEmail(emailStored);
+  }, [nameStored, emailStored]);
 
   const isValid = () => {
     let hasError = false;
@@ -39,30 +48,26 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!isValid()) return;
 
-    try {
-      dispatch(setLoading(true));
-      const response = await axios.post('/users', { name, password, email });
-      dispatch(setLoading(false));
-      toast.success(`Created count successfully to ${response.data.name} `);
-      history.push('/login');
-    } catch (error) {
-      dispatch(setLoading(false));
-      if (error.response) {
-        const { errors } = error.response.data;
-        errors.forEach((item) => {
-          toast.error(item);
-        });
-      } else {
-        toast.error(error.message);
-      }
+    if (id) {
+      dispatch(
+        updateUserRequest({
+          id,
+          name,
+          email,
+          password,
+        }),
+      );
+    } else {
+      dispatch(createUserRequest({ name, email, password }));
     }
   };
 
   return (
     <Container>
-      <h1>Create your count</h1>
+      <h1>{id ? 'Edit your count' : 'Create your count'}</h1>
       <Form onSubmit={handleSubmit}>
         <LabelInput
           placeholder="Your name"
@@ -85,7 +90,7 @@ function Register() {
           setValue={setPassword}
         />
 
-        <button type="submit">Create my count</button>
+        <button type="submit">{id ? 'Save edition' : 'Create my count'}</button>
       </Form>
     </Container>
   );

@@ -21,12 +21,20 @@ class UserService {
     return { id, name, email };
   }
 
-  async update(userId) {
-    const user = await User.findByPk(userId);
-    if (!user) {
+  async update(userId, user) {
+    const foundUser = await User.findByPk(userId);
+    if (!foundUser) {
       throw new Error('User not found');
     }
-    const { id, name, email } = await user.update(user);
+
+    const foundUserByEmail = await User.findOne({ where: { email: user.email } });
+
+    if (foundUserByEmail && foundUserByEmail.id !== userId) {
+      throw new Error('The new e-mail is already associated to other user');
+    }
+
+    const { id, name, email } = await foundUser.update(user);
+    console.log(id, name, email);
     return { id, name, email };
   }
 

@@ -23,6 +23,40 @@ function* getToken({ payload }) {
   }
 }
 
+function* createUser({ payload }) {
+  try {
+    store.dispatch(setLoading(true));
+    const response = yield call(axios.post, '/users', payload);
+    yield put(actions.createUserSuccess({ ...response.data }));
+    store.dispatch(setLoading(false));
+    history.push('/login');
+  } catch (error) {
+    store.dispatch(setLoading(false));
+    const errors = get(error, 'response.data.errors', [error.message]);
+    errors.forEach((item) => {
+      toast.error(item);
+    });
+    yield put(actions.createUserFailure());
+  }
+}
+
+function* updateUser({ payload }) {
+  try {
+    store.dispatch(setLoading(true));
+    const response = yield call(axios.put, '/users', payload);
+    yield put(actions.updateUserSuccess({ ...response.data }));
+    store.dispatch(setLoading(false));
+    history.push('/');
+  } catch (error) {
+    store.dispatch(setLoading(false));
+    const errors = get(error, 'response.data.errors', [error.message]);
+    errors.forEach((item) => {
+      toast.error(item);
+    });
+    yield put(actions.updateUserFailure());
+  }
+}
+
 function persistRehydrate({ payload }) {
   const token = get(payload, 'auth.token', '');
   if (!token) return;
@@ -31,5 +65,7 @@ function persistRehydrate({ payload }) {
 
 export default all([
   takeLatest(types.GET_TOKEN_REQUEST, getToken),
+  takeLatest(types.CREATE_USER_REQUEST, createUser),
+  takeLatest(types.UPDATE_USER_REQUEST, updateUser),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
 ]);
