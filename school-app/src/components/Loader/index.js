@@ -1,19 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Container } from './styled';
+import ModalContainer from '../ModalContainer';
 
 export default function Loader() {
   const isLoading = useSelector((state) => state.loading);
-
   if (!isLoading) return <></>;
-
   return (
     <>
-      <Container>
-        <div>
-          <span>Loading...</span>
-        </div>
-      </Container>
+      <ModalContainer>
+        <span>Loading...</span>
+      </ModalContainer>
     </>
   );
 }
