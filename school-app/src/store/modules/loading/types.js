@@ -1,0 +1,1 @@
+export const SET_LOADING_REQUEST = '@loader/SET_LOADING_REQUEST';
