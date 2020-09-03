@@ -10,9 +10,8 @@ export default function ConfirmDialog({
   yesFunction,
   noFunction,
 }) {
-  if (!show) return <></>;
   return (
-    <ModalContainer>
+    <ModalContainer show={show}>
       <DialogContainer>
         <header>{title}</header>
         <section>{message}</section>

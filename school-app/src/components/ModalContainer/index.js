@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-export default function ModalContainer({ children }) {
+export default function ModalContainer({ show, children }) {
   return (
-    <ModalContent>
+    <ModalContent show={show}>
       <div>{children}</div>
     </ModalContent>
   );
@@ -12,9 +12,11 @@ export default function ModalContainer({ children }) {
 
 ModalContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
 const ModalContent = styled.div`
+  display: ${(props) => (props.show ? 'block' : 'none')};
   position: absolute;
   width: 100%;
   height: 100%;
@@ -22,6 +24,7 @@ const ModalContent = styled.div`
   left: 0;
   z-index: 1;
   font-size: 2rem;
+  transition: all 0.6s;
 
   div {
     display: flex;

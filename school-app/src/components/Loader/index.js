@@ -4,10 +4,10 @@ import ModalContainer from '../ModalContainer';
 
 export default function Loader() {
   const isLoading = useSelector((state) => state.loading);
-  if (!isLoading) return <></>;
+
   return (
     <>
-      <ModalContainer>
+      <ModalContainer show={isLoading}>
         <span>Loading...</span>
       </ModalContainer>
     </>
