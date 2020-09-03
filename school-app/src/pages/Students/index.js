@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEdit, FaUserCircle, FaWindowClose } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { ProfilePicture, StudentContainer } from './styled';
 
 export default function Students() {
@@ -13,10 +14,15 @@ export default function Students() {
 
   useEffect(() => {
     async function getStudents() {
-      dispatch(setLoading(true));
-      const studentsRequest = await axios.get('/students');
-      setStudents(studentsRequest.data);
-      dispatch(setLoading(false));
+      try {
+        dispatch(setLoading(true));
+        const studentsRequest = await axios.get('/students');
+        setStudents(studentsRequest.data);
+        dispatch(setLoading(false));
+      } catch (error) {
+        toast.error(error.message);
+        dispatch(setLoading(false));
+      }
     }
     getStudents();
   }, []);

@@ -28,12 +28,12 @@ function Register() {
   const isValid = () => {
     let hasError = false;
 
-    if (name.length < 2 || name.length > 255) {
+    if (name && (name.length < 2 || name.length > 255)) {
       hasError = true;
       toast.error('The name must have between 2 and 255 characters');
     }
 
-    if (password.length < 6 || password.length > 80) {
+    if (password && (password.length < 6 || password.length > 80)) {
       hasError = true;
       toast.error('The password must have between 2 and 80 characters');
     }
