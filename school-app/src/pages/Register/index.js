@@ -1,13 +1,17 @@
 import LabelInput from '@/components/LabelInput';
 import axios from '@/services/axios';
 import history from '@/services/history';
+import { setLoading } from '@/store/modules/loading/actions';
 import { Container } from '@/styles/GlobalStyle';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 import { Form } from './styled';
 
 function Register() {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,10 +42,13 @@ function Register() {
     if (!isValid()) return;
 
     try {
+      dispatch(setLoading(true));
       const response = await axios.post('/users', { name, password, email });
+      dispatch(setLoading(false));
       toast.success(`Created count successfully to ${response.data.name} `);
       history.push('/login');
     } catch (error) {
+      dispatch(setLoading(false));
       if (error.response) {
         const { errors } = error.response.data;
         errors.forEach((item) => {

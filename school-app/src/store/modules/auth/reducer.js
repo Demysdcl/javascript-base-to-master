@@ -4,7 +4,6 @@ const initialState = {
   isLoggedIn: false,
   token: null,
   user: {},
-  isLoading: false,
 };
 
 export default function (state = initialState, action) {
@@ -12,7 +11,7 @@ export default function (state = initialState, action) {
     case types.GET_TOKEN_REQUEST:
       return { ...initialState, isLoading: true };
     case types.GET_TOKEN_SUCCESS:
-      return { ...action.payload, isLoggedIn: true, isLoading: false };
+      return { ...action.payload, isLoggedIn: true };
     case types.GET_TOKEN_FAILURE:
       return { ...initialState };
     default:

@@ -1,3 +1,4 @@
+import Loader from '@/components/Loader';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
@@ -15,6 +16,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <Router history={history}>
           <Header />
+          <Loader />
           <Routes />
           <GlobalStyle />
           <ToastContainer autoClose={5000} className="toast-container" />
