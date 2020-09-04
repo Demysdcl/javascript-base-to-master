@@ -7,7 +7,7 @@ import { FaEdit, FaUserCircle, FaWindowClose } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { ProfilePicture, StudentContainer } from './styled';
+import { NewStudent, ProfilePicture, StudentContainer, Title } from './styled';
 
 export default function Students() {
   const dispatch = useDispatch();
@@ -65,7 +65,15 @@ export default function Students() {
           setShow(false);
         }}
       />
-      <h1>Students</h1>
+
+      {isLoggedIn && (
+        <Title>
+          Students
+          <NewStudent to="/student">
+            <strong>+</strong>
+          </NewStudent>
+        </Title>
+      )}
 
       <StudentContainer>
         {students.map((student, idx) => (
