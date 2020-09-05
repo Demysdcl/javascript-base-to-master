@@ -7,7 +7,7 @@ export default function Loader() {
 
   return (
     <>
-      <ModalContainer show={isLoading}>
+      <ModalContainer show={isLoading} zIndex={10}>
         <span>Loading...</span>
       </ModalContainer>
     </>

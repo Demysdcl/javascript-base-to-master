@@ -17,6 +17,9 @@ export const Nav = styled.nav`
 `;
 
 export const Tooltip = styled.span`
+  color: #fff;
+  font-weight: 700;
+
   &:hover {
     &::after {
       display: block;

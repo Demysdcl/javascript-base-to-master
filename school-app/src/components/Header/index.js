@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Nav, Tooltip } from './styled';
 
 export default function Header() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleClick = () => dispatch(getTokenFailure());
@@ -39,7 +39,7 @@ export default function Header() {
         </Link>
       )}
 
-      {/* */}
+      <Tooltip tooltip="Logged user">{user.name ? user.name : ''}</Tooltip>
     </Nav>
   );
 }

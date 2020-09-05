@@ -1,5 +1,4 @@
 import { primaryColor } from '@/styles/colors';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StudentContainer = styled.div`
@@ -40,7 +39,7 @@ export const Title = styled.h1`
   align-items: center;
 `;
 
-export const NewStudent = styled(Link)`
+export const NewStudent = styled.a`
   display: flex;
   padding: 20px;
   background-color: ${primaryColor};

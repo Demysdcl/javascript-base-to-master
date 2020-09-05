@@ -5,8 +5,8 @@ import { Container } from '@/styles/GlobalStyle';
 import React, { useEffect, useState } from 'react';
 import { FaEdit, FaUserCircle, FaWindowClose } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Student from './Student';
 import { NewStudent, ProfilePicture, StudentContainer, Title } from './styled';
 
 export default function Students() {
@@ -16,19 +16,50 @@ export default function Students() {
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
   const [index, setIndex] = useState(-1);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const newStudent = {
+    id: null,
+    firstname: '',
+    lastname: '',
+    email: '',
+    height: 0,
+    weight: 0,
+    age: 0,
+  };
+
+  const [editStudent, setEditStudent] = useState(newStudent);
+
+  const handleEdit = (student) => {
+    setEditStudent(student);
+    setShowDialog(true);
+  };
+
+  const handleCreate = () => {
+    setEditStudent(newStudent);
+    setShowDialog(true);
+  };
+
+  async function getStudents() {
+    try {
+      dispatch(setLoading(true));
+      const studentsRequest = await axios.get('/students');
+      setStudents(studentsRequest.data);
+      dispatch(setLoading(false));
+    } catch (error) {
+      toast.error(error.message);
+      dispatch(setLoading(false));
+    }
+  }
 
   useEffect(() => {
-    async function getStudents() {
-      try {
-        dispatch(setLoading(true));
-        const studentsRequest = await axios.get('/students');
-        setStudents(studentsRequest.data);
-        dispatch(setLoading(false));
-      } catch (error) {
-        toast.error(error.message);
-        dispatch(setLoading(false));
-      }
+    if (!showDialog) {
+      getStudents();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showDialog]);
+
+  useEffect(() => {
     getStudents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,10 +97,16 @@ export default function Students() {
         }}
       />
 
+      <Student
+        show={showDialog}
+        setShow={setShowDialog}
+        student={editStudent}
+      />
+
       {isLoggedIn && (
         <Title>
           Students
-          <NewStudent to="/student">
+          <NewStudent onClick={() => handleCreate()}>
             <strong>+</strong>
           </NewStudent>
         </Title>
@@ -87,9 +124,8 @@ export default function Students() {
             <span>{student.email}</span>
             {isLoggedIn && (
               <div>
-                <Link to={`/student/${student.id}/edit`}>
-                  <FaEdit size={16} />
-                </Link>
+                <FaEdit size={16} onClick={() => handleEdit(student)} />
+
                 <FaWindowClose
                   size={16}
                   onClick={() => handleConfirmation(student.id, idx)}
