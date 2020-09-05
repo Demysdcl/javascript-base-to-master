@@ -24,7 +24,7 @@ export default function LabelInput({
 
   return (
     <Label>
-      {title}:
+      {title ? `${title}:` : ''}
       <input
         type={type}
         value={field ? value[field] : value}
@@ -39,10 +39,11 @@ LabelInput.defaultProps = {
   type: 'text',
   placeholder: '',
   field: '',
+  title: '',
 };
 
 LabelInput.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   type: PropTypes.string,
   placeholder: PropTypes.string,
   field: PropTypes.string,

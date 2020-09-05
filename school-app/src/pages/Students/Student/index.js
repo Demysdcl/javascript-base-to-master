@@ -6,9 +6,10 @@ import { setLoading } from '@/store/modules/loading/actions';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { StudentContainer } from './styled';
+import { ProfilePicture, StudentContainer } from './styled';
 
 export default function Student({ student, show, setShow }) {
   const [changedStudent, setChangedStudent] = useState(student);
@@ -48,42 +49,55 @@ export default function Student({ student, show, setShow }) {
       <StudentContainer>
         <header>{student.id ? 'Edit Student' : 'New Student'}</header>
 
+        {student.id && (
+          <ProfilePicture>
+            {student.Photos.length ? (
+              <img src={student.Photos[0].url} alt={student.firstname} />
+            ) : (
+              <FaUserCircle size={180} />
+            )}
+            <span>
+              <FaEdit size={18} />
+            </span>
+          </ProfilePicture>
+        )}
+
         <section className="body-student">
           <LabelInput
-            title="First name"
+            placeholder="First name"
             value={changedStudent}
             setValue={setChangedStudent}
             field="firstname"
           />
           <LabelInput
-            title="Last name"
+            placeholder="Last name"
             value={changedStudent}
             setValue={setChangedStudent}
             field="lastname"
           />
           <LabelInput
-            title="E-mail"
+            placeholder="E-mail"
             value={changedStudent}
             setValue={setChangedStudent}
             field="email"
             type="email"
           />
           <LabelInput
-            title="Age"
+            placeholder="Age"
             value={changedStudent}
             setValue={setChangedStudent}
             field="age"
             type="number"
           />
           <LabelInput
-            title="Height"
+            placeholder="Height"
             value={changedStudent}
             setValue={setChangedStudent}
             field="height"
             type="number"
           />
           <LabelInput
-            title="Weight"
+            placeholder="Weight"
             value={changedStudent}
             setValue={setChangedStudent}
             field="weight"

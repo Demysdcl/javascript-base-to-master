@@ -42,3 +42,31 @@ export const StudentContainer = styled.div`
     }
   }
 `;
+
+export const ProfilePicture = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: 0 0 20px;
+  position: relative;
+
+  img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    position: absolute;
+    bottom: -12px;
+    color: #fff;
+    background-color: ${primaryColor};
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+`;
