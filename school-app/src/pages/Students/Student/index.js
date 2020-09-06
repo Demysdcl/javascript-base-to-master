@@ -13,26 +13,63 @@ import { ProfilePicture, StudentContainer } from './styled';
 
 export default function Student({ student, show, setShow }) {
   const [changedStudent, setChangedStudent] = useState(student);
+  const [photo, setPhoto] = useState('');
+  const [filePhoto, setFilePhoto] = useState(null);
 
   useEffect(() => {
     setChangedStudent(student);
+    setPhoto('');
+    setFilePhoto(null);
+    if (student.Photos && student.Photos.length > 0) {
+      setPhoto(student.Photos[0].url);
+    }
   }, [student]);
+
+  const initialStudent = {
+    id: null,
+    firstname: '',
+    lastname: '',
+    email: '',
+    height: '',
+    weight: '',
+    age: '',
+    Photos: [],
+  };
 
   const dispatch = useDispatch();
 
   const handleSave = async () => {
     try {
       dispatch(setLoading(true));
-
+      let savedStudent;
       if (student.id) {
         const { data } = await axios.put(
           `/students/${student.id}`,
           changedStudent,
         );
-        toast.success(`Student ${data.firstname} was edited successfully`);
+        savedStudent = data;
+        toast.success(
+          `Student ${savedStudent.firstname} was edited successfully`,
+        );
       } else {
         const { data } = await axios.post('/students', changedStudent);
-        toast.success(`Student ${data.firstname} was created successfully`);
+        savedStudent = data;
+        toast.success(
+          `Student ${savedStudent.firstname} was created successfully`,
+        );
+        setChangedStudent(initialStudent);
+      }
+
+      if (filePhoto) {
+        const formData = new FormData();
+        formData.append('studentId', savedStudent.id);
+        formData.append('photo', filePhoto);
+        await axios.post('/photos', formData);
+        setPhoto('');
+      }
+
+      if (student.id) {
+        setShow(false);
       }
     } catch (error) {
       const errors = get(error, 'response.data.errors', [error.message]);
@@ -44,23 +81,34 @@ export default function Student({ student, show, setShow }) {
     }
   };
 
+  const handlePhoto = (e) => {
+    const newPhoto = e.target.files[0];
+    const photoUrl = URL.createObjectURL(newPhoto);
+    setPhoto(photoUrl);
+    setFilePhoto(newPhoto);
+  };
+
   return (
     <ModalContainer show={show}>
       <StudentContainer>
         <header>{student.id ? 'Edit Student' : 'New Student'}</header>
 
-        {student.id && (
-          <ProfilePicture>
-            {student.Photos.length ? (
-              <img src={student.Photos[0].url} alt={student.firstname} />
-            ) : (
-              <FaUserCircle size={180} />
-            )}
-            <span>
-              <FaEdit size={18} />
-            </span>
-          </ProfilePicture>
-        )}
+        <ProfilePicture>
+          {photo ? (
+            <img src={photo} alt={student.firstname} />
+          ) : (
+            <FaUserCircle size={180} />
+          )}
+          <label htmlFor="photo">
+            <input
+              id="photo"
+              type="file"
+              accept="image/jpeg, image/jpg, image/png, image/git"
+              onChange={handlePhoto}
+            />
+            <FaEdit size={18} />
+          </label>
+        </ProfilePicture>
 
         <section className="body-student">
           <LabelInput

@@ -56,7 +56,7 @@ export const ProfilePicture = styled.div`
     border-radius: 50%;
   }
 
-  span {
+  label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,5 +68,15 @@ export const ProfilePicture = styled.div`
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    transition: transform 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1, 1.1);
+    }
+
+    input {
+      display: none;
+    }
   }
 `;

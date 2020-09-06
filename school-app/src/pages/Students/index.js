@@ -26,6 +26,7 @@ export default function Students() {
     height: '',
     weight: '',
     age: '',
+    Photos: [],
   };
 
   const [editStudent, setEditStudent] = useState(newStudent);
