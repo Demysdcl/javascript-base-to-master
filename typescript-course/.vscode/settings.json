@@ -1,5 +1,9 @@
 {
     "code-runner.executorMap": {
-        "typescript": "clear && npx ts-node --files",
-    }
+      "[typescript]": "clear && ts-node --file --transpile-only"
+    },
+    "deno.enable": true,
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
 }
