@@ -1,0 +1,6 @@
+
+
+/*  
+^ -> starts with
+$ -> ends with
+ */
