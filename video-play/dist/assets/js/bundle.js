@@ -95,6 +95,30 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var VideoPlayer = (function () {
+    function VideoPlayer(videoPlayerElements) {
+        this.videoPlayer = videoPlayerElements.videoPlayer;
+        this.playButton = videoPlayerElements.playButton;
+        this.stopButton = videoPlayerElements.stopButton;
+    }
+    VideoPlayer.prototype.playToggle = function () {
+        throw new Error("Method not implemented.");
+    };
+    VideoPlayer.prototype.stop = function () {
+        throw new Error("Method not implemented.");
+    };
+    VideoPlayer.prototype.initEvents = function () {
+        throw new Error("Method not implemented.");
+    };
+    return VideoPlayer;
+}());
+exports.default = VideoPlayer;
+var videoPlayer = new VideoPlayer({
+    videoPlayer: document.querySelector('.video'),
+    playButton: document.querySelector('.play'),
+    stopButton: document.querySelector('.stop')
+});
 
 
 /***/ })
