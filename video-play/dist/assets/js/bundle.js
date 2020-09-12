@@ -101,15 +101,34 @@ var VideoPlayer = (function () {
         this.videoPlayer = videoPlayerElements.videoPlayer;
         this.playButton = videoPlayerElements.playButton;
         this.stopButton = videoPlayerElements.stopButton;
+        this.fullscreenSpan = videoPlayerElements.fullscreenSpan;
     }
+    VideoPlayer.prototype.initEvents = function () {
+        var _this = this;
+        this.playButton.addEventListener('click', function () {
+            _this.playToggle();
+        });
+        this.stopButton.addEventListener('click', function () {
+            _this.stop();
+        });
+        this.fullscreenSpan.addEventListener('click', function () {
+            _this.videoPlayer.requestFullscreen();
+        });
+    };
     VideoPlayer.prototype.playToggle = function () {
-        throw new Error("Method not implemented.");
+        if (this.videoPlayer.paused) {
+            this.videoPlayer.play();
+            this.playButton.innerText = 'Pause';
+        }
+        else {
+            this.videoPlayer.pause();
+            this.playButton.innerText = 'Play';
+        }
     };
     VideoPlayer.prototype.stop = function () {
-        throw new Error("Method not implemented.");
-    };
-    VideoPlayer.prototype.initEvents = function () {
-        throw new Error("Method not implemented.");
+        this.videoPlayer.pause();
+        this.videoPlayer.currentTime = 0;
+        this.playButton.innerText = 'Play';
     };
     return VideoPlayer;
 }());
@@ -117,8 +136,10 @@ exports.default = VideoPlayer;
 var videoPlayer = new VideoPlayer({
     videoPlayer: document.querySelector('.video'),
     playButton: document.querySelector('.play'),
-    stopButton: document.querySelector('.stop')
+    stopButton: document.querySelector('.stop'),
+    fullscreenSpan: document.querySelector('.fullscreen')
 });
+videoPlayer.initEvents();
 
 
 /***/ })

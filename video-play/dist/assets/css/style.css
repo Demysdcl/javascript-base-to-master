@@ -42,15 +42,24 @@ body {
   margin-bottom: 20px;
 }
 
+.video-container:hover .controls {
+  display: flex;
+}
+
 .video {
   max-width: 100%;
   display: flex;
 }
 
 .controls {
+  display: none;
   position: absolute;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   bottom: 10px;
-  left: 10px;
+  padding: 0 10px;
+
 }
 
 .controls button {
@@ -63,8 +72,22 @@ body {
   opacity: .5;
   cursor: pointer;
   transition: opacity .3s ease-in-out;
+
 }
 
 .controls button:hover {
   opacity: 1;
+}
+
+.controls .fullscreen {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  transition: transform .3s;
+
+}
+
+.controls .fullscreen:hover {
+  transform: scale(1.1, 1.1);
 }
