@@ -25,7 +25,13 @@ export class Order {
     }
 
     this._orderStatus = 'closed'
-    this.messaging.sendMessage('Your order was received')
+    this.messaging.sendMessage(
+      'Your order was received, the total was ' +
+        this.shoppingCart.totalWithDiscount(),
+    )
+    console.log(
+      `Order ended to ${this.customer.getName()}, with identification number ${this.customer.getIDN()} `,
+    )
     this.persistency.saveOrder()
     this.shoppingCart.clear()
   }

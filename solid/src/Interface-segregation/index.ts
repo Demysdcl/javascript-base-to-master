@@ -1,3 +1,4 @@
+import { EnterpriseCustomer, IndividualCustomer } from './customer/customer'
 import {
   FiftyPercentDiscount,
   NoDiscount,
@@ -12,7 +13,19 @@ import { ShoppingCart } from './shopping-cart/shopping-card'
 const shoppingCart = new ShoppingCart(new NoDiscount())
 const messaging = new Messaging()
 const persistency = new Persistency()
-const order = new Order(shoppingCart, messaging, persistency)
+
+const individualCustomer = new IndividualCustomer(
+  'Demys',
+  'Lima',
+  '123.456.789.14',
+)
+
+const order = new Order(
+  shoppingCart,
+  messaging,
+  persistency,
+  individualCustomer,
+)
 shoppingCart.addItem(new Product('T-shirt', 49.9))
 shoppingCart.addItem(new Product('notebook', 9.9))
 shoppingCart.addItem(new Product('pencil', 1.59))
@@ -28,8 +41,16 @@ console.log(
   '#####################################################################################',
 )
 
+const enterpriseCustomer = new EnterpriseCustomer('DCLFactor', '123.456.789.14')
+
 const shoppingCart2 = new ShoppingCart(new TenPercentDiscount())
-const order2 = new Order(shoppingCart2, messaging, persistency)
+const order2 = new Order(
+  shoppingCart2,
+  messaging,
+  persistency,
+  enterpriseCustomer,
+)
+
 shoppingCart2.addItem(new Product('T-shirt', 49.9))
 shoppingCart2.addItem(new Product('notebook', 9.9))
 shoppingCart2.addItem(new Product('pencil', 1.59))
@@ -46,7 +67,12 @@ console.log(
 )
 
 const shoppingCart3 = new ShoppingCart(new FiftyPercentDiscount())
-const order3 = new Order(shoppingCart3, messaging, persistency)
+const order3 = new Order(
+  shoppingCart3,
+  messaging,
+  persistency,
+  enterpriseCustomer,
+)
 shoppingCart3.addItem(new Product('T-shirt', 49.9))
 shoppingCart3.addItem(new Product('notebook', 9.9))
 shoppingCart3.addItem(new Product('pencil', 1.59))
