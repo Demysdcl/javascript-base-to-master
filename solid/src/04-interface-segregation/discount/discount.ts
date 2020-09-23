@@ -23,8 +23,4 @@ export class NoDiscount extends Discount {
   constructor() {
     super(0)
   }
-
-  calculate(price: number): number {
-    return 10000000000000000000000
-  }
 }
