@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1601156598021" clover="3.2.0">
+  <project timestamp="1601156598021" name="All files">
+    <metrics statements="52" coveredstatements="52" conditionals="2" coveredconditionals="2" methods="26" coveredmethods="26" elements="80" coveredelements="80" complexity="0" loc="52" ncloc="52" packages="6" files="7" classes="7"/>
+    <package name="customer">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <file name="customer.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/customer/customer.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="discount">
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+      <file name="discount.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/discount/discount.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="10" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="item-cart">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="product.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/item-cart/product.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="messaging">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="messaging.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/messaging/messaging.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="order">
+      <metrics statements="17" coveredstatements="17" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
+      <file name="order-persistency.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/order/order-persistency.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+      </file>
+      <file name="order.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/order/order.ts">
+        <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="22" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="shopping-cart">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
+      <file name="shopping-cart.ts" path="/home/snowmanlabs/Documents/javascript-base-to-master/test-with-jest/src/shopping-cart/shopping-cart.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="10" count="12" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="22" count="8" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
