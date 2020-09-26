@@ -1,6 +1,6 @@
 import { DiscountProtocol } from '../discount/discount'
-import { CartItem } from './../item-cart/cart-item'
-import { ShoppingCart } from './shopping-card'
+import { CartItem } from '../item-cart/cart-item'
+import { ShoppingCart } from './shopping-cart'
 
 const createSut = () => {
   return new ShoppingCart(discountMock())

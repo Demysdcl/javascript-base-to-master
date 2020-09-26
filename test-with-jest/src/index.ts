@@ -8,7 +8,7 @@ import { Product } from './item-cart/product'
 import { Messaging } from './messaging/messaging'
 import { Order } from './order/order'
 import { Persistency } from './order/order-persistency'
-import { ShoppingCart } from './shopping-cart/shopping-card'
+import { ShoppingCart } from './shopping-cart/shopping-cart'
 
 const shoppingCart = new ShoppingCart(new NoDiscount())
 const messaging = new Messaging()
