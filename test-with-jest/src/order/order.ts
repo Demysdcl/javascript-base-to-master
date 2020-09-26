@@ -1,4 +1,4 @@
-import { CustomerOrderProtocal } from '../customer/customer-protocol'
+import { CustomerOrderProtocol } from '../customer/customer-protocol'
 import { MessagingProtocol } from './../messaging/messaging-protocol'
 import { ShoppingCartProtocol } from './../shopping-cart/shopping-cart-protocol'
 import { PersistencyProtocol } from './order-persistency-protocol'
@@ -11,7 +11,7 @@ export class Order {
     private readonly shoppingCart: ShoppingCartProtocol,
     private readonly messaging: MessagingProtocol,
     private readonly persistency: PersistencyProtocol,
-    private readonly customer: CustomerOrderProtocal,
+    private readonly customer: CustomerOrderProtocol,
   ) {}
 
   get orderStatus(): Readonly<OrderStatus> {

@@ -1,4 +1,4 @@
-export interface CustomerOrderProtocal {
+export interface CustomerOrderProtocol {
   getName(): string
   getIDN(): string
 }

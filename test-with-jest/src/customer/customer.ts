@@ -1,11 +1,11 @@
 import {
-  CustomerOrderProtocal,
-  EnterpriseCustomerProtocol,
-  IndividualCustomerProtocol
+    CustomerOrderProtocol,
+    EnterpriseCustomerProtocol,
+    IndividualCustomerProtocol
 } from './customer-protocol'
 
 export class IndividualCustomer
-  implements IndividualCustomerProtocol, CustomerOrderProtocal {
+  implements IndividualCustomerProtocol, CustomerOrderProtocol {
   firstname: string
   lastname: string
   cpf: string
@@ -25,7 +25,7 @@ export class IndividualCustomer
 }
 
 export class EnterpriseCustomer
-  implements EnterpriseCustomerProtocol, CustomerOrderProtocal {
+  implements EnterpriseCustomerProtocol, CustomerOrderProtocol {
   name: string
   cnpj: string
 
