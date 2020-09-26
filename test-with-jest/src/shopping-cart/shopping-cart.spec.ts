@@ -6,11 +6,12 @@ const createSut = () => {
   return new ShoppingCart(discountMock())
 }
 
-const createSutWith2Items = (): ShoppingCart => {
-  const sut = new ShoppingCart(discountMock())
+const createSutWith2Items = () => {
+  const discount = discountMock()
+  const sut = new ShoppingCart(discount)
   sut.addItem(createCartItem('T-shirt', 10))
   sut.addItem(createCartItem('pen', 1))
-  return sut
+  return { sut, discount }
 }
 
 const discountMock = () => {
@@ -34,17 +35,17 @@ describe('', () => {
   })
 
   it('should cart has 2 items ', () => {
-    const sut = createSutWith2Items()
+    const { sut } = createSutWith2Items()
     expect(sut.items.length).toBe(2)
   })
 
   it('should price has no discount ', () => {
-    const sut = createSutWith2Items()
+    const { sut } = createSutWith2Items()
     expect(sut.totalWithDiscount()).toBe(11)
   })
 
   it('should cart has 2 items and after has 0 items ', () => {
-    const sut = createSutWith2Items()
+    const { sut } = createSutWith2Items()
     expect(sut.isEmpty()).toBeFalsy()
     expect(sut.items.length).toBe(2)
     sut.clear()
@@ -53,11 +54,25 @@ describe('', () => {
   })
 
   it('should remove product', () => {
-    const sut = createSutWith2Items()
+    const { sut } = createSutWith2Items()
     expect(sut.isEmpty()).toBeFalsy()
     expect(sut.items.length).toBe(2)
     sut.removeItem(1)
     expect(sut.isEmpty()).toBeFalsy()
     expect(sut.items.length).toBe(1)
+  })
+
+  it('should call discount.calculet(price) once when totalWithDiscount is called', () => {
+    const { sut, discount } = createSutWith2Items()
+    const discountSpy = jest.spyOn(discount, 'calculate')
+    sut.totalWithDiscount()
+    expect(discountSpy).toHaveBeenCalledTimes(1)
+  })
+
+  it('should call discount.calculet(price) once when totalWithDiscount is called', () => {
+    const { sut, discount } = createSutWith2Items()
+    const discountSpy = jest.spyOn(discount, 'calculate')
+    sut.totalWithDiscount()
+    expect(discountSpy).toHaveBeenCalledWith(sut.total())
   })
 })
