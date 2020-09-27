@@ -1,0 +1,5 @@
+{
+  "[svelte]": {
+    "editor.formatOnSave": true
+  }
+}
