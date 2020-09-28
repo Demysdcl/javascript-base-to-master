@@ -13,7 +13,6 @@ module.exports = {
     },
     plugins: ["@typescript-eslint", "svelte3"],
     extends: [
-      "airbnb-typescript",
       "plugin:@typescript-eslint/recommended",
       "plugin:eslint-comments/recommended",
       "plugin:promise/recommended",

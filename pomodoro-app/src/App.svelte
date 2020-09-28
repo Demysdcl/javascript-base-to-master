@@ -1,37 +1,34 @@
 <script lang="ts">
-	import Hello from './components/Hello.svelte';
+	import PomodoroTimer from './contexts/Pomodoro/PomodoroTimer.svelte'
 
-	export let name: string;
+	let status: 'working' | 'interval' = 'interval'
 </script>
 
 <style>
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
 		margin: 0 auto;
+		height: 100%;
+		background-color: #41e1ba;
+		line-height: 1.5;
+		transition: background-color 300ms ease-in-out;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+	.working {
+		background-color: #ef5d50;
 	}
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	.hidden {
+		display: none;
 	}
 </style>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<Hello />
-	<p>
-		Visit the
-		<a href="https://svelte.dev/tutorial">Svelte tutorial</a>
-		to learn how to build Svelte apps.
-	</p>
+<main class={status}>
+	<PomodoroTimer
+		defaultPomodoroTimer={1500}
+		shortRestTime={300}
+		longRestTime={900}
+		cycles={4}
+		bind:status />
 </main>

@@ -1,5 +1,10 @@
 {
   "[svelte]": {
     "editor.formatOnSave": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll": true,
+    "source.eslint.fixAll": true
   }
 }

@@ -4,7 +4,7 @@
     "ardenivanov.svelte-intellisense",
     "fivethree.vscode-svelte-snippets",
     "dbaeumer.vscode-eslint",
-    "rvest.vs-code-prettier-eslint",
-    "EditorConfig.EditorConfig"
+    "EditorConfig.EditorConfig",
+    "SimonSiefke.prettier-vscode"
   ]
 }
