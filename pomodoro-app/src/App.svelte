@@ -26,9 +26,9 @@
 
 <main class={status}>
 	<PomodoroTimer
-		pomodoroTimer={25}
-		shortRestTime={5}
-		longRestTime={15}
+		pomodoroTimer={1500}
+		shortRestTime={300}
+		longRestTime={900}
 		cycles={4}
 		bind:status />
 </main>
