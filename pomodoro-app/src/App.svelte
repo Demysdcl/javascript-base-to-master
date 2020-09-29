@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PomodoroTimer from './contexts/Pomodoro/PomodoroTimer.svelte'
 
-	let status: 'working' | 'interval' = 'interval'
+	let status: 'working' | 'resting' | 'stopped' = 'stopped'
 </script>
 
 <style>
@@ -26,9 +26,9 @@
 
 <main class={status}>
 	<PomodoroTimer
-		defaultPomodoroTimer={1500}
-		shortRestTime={300}
-		longRestTime={900}
+		pomodoroTimer={3}
+		shortRestTime={1}
+		longRestTime={2}
 		cycles={4}
 		bind:status />
 </main>

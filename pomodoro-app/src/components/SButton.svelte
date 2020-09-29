@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let title = 'Insert title'
 	export let className = ''
+	export let style: string = ''
 </script>
 
 <style>
@@ -20,4 +21,4 @@
 	}
 </style>
 
-<button class={className} on:click>{title}</button>
+<button {style} class={className} on:click>{title}</button>

@@ -1,26 +1,89 @@
 <script lang="ts">
+	import Progress from '../../components/Progress.svelte'
 	import SButton from '../../components/SButton.svelte'
+	import Details from './Details.svelte'
 	import Timer from './Timer.svelte'
 
-	export let defaultPomodoroTimer: number
-	/* export let shortRestTime = 300
+	export let pomodoroTimer: number
+	export let shortRestTime = 300
 	export let longRestTime = 900
-	export let cycles = 4 */
-	export let status: 'working' | 'interval'
-	let mainTime = defaultPomodoroTimer
-	let interval: number
+	export let cycles = 4
+	export let status: 'working' | 'resting' | 'stopped'
 
-	const resume = () => {
-		interval = setInterval(() => mainTime--, 1000)
+	let bellFinish: HTMLVideoElement
+	let bellStart: HTMLVideoElement
+
+	let mainTime = pomodoroTimer
+	let progressTime = pomodoroTimer
+	let interval: number
+	let playing = false
+	let cycleManager = cycles
+
+	const counters = {
+		completedCycles: 0,
+		completedPomodoros: 0,
+		workedTime: 0,
+		restedTime: 0,
+	}
+
+	const working = () => {
+		clearAndCreateInterval()
 		status = 'working'
+		mainTime = pomodoroTimer
+		progressTime = pomodoroTimer
+		bellStart.play()
 	}
 
 	const pause = () => {
-		clearInterval(interval)
-		status = 'interval'
+		if (playing) {
+			clearInterval(interval)
+			playing = false
+		} else {
+			clearAndCreateInterval()
+		}
 	}
 
-	const reset = () => (mainTime = defaultPomodoroTimer)
+	const resting = (long: boolean) => {
+		status = 'resting'
+		bellFinish.play()
+		const getRestinValue = () => (long ? longRestTime : shortRestTime)
+		mainTime = getRestinValue()
+		progressTime = getRestinValue()
+		long && counters.completedPomodoros++
+		clearAndCreateInterval()
+	}
+
+	const clearAndCreateInterval = () => {
+		clearInterval(interval)
+		interval = setInterval(() => {
+			if (mainTime > 0) {
+				mainTime--
+				if (status === 'working') {
+					counters.workedTime++
+				} else {
+					counters.restedTime++
+				}
+			} else {
+				if (status === 'working') {
+					counters.completedCycles++
+					configResting()
+				} else {
+					working()
+				}
+			}
+		}, 1000)
+		playing = true
+	}
+
+	const configResting = () => {
+		if (cycleManager > 1) {
+			cycleManager--
+			resting(false)
+		} else {
+			resting(true)
+			cycleManager = cycles
+		}
+	}
 </script>
 
 <style>
@@ -43,28 +106,51 @@
 		justify-content: space-evenly;
 	}
 
-	.details {
-		margin: 20px 0;
+	img {
+		width: 250px;
+		height: 150px;
+	}
+
+	audio {
+		display: none;
 	}
 </style>
 
 <div class="pomodoro">
+	<h1>Pomodoro Timer</h1>
+	<img src="./assets/images/pomodoro-timer.png" alt="pomodoro timer" />
+
 	<h2>You are: {status}</h2>
 
 	<Timer {mainTime} />
 
+	<Progress
+		max={progressTime}
+		bind:value={mainTime}
+		color={status === 'working' ? '#ef5d50' : '#41e1ba'} />
+
 	<div class="controls">
-		<SButton title="Resume" className={status} on:click={resume} />
+		<SButton title="work" className={status} on:click={working} />
 
-		<SButton title="Pause" className={status} on:click={pause} />
+		<SButton title="Rest" className={status} on:click={() => resting(false)} />
 
-		<SButton title="Reset" className={status} on:click={reset} />
+		<SButton
+			title={playing ? 'Pause' : 'Play'}
+			className={status}
+			on:click={pause}
+			style="display: {status === 'stopped' ? 'none' : 'block'}" />
 	</div>
 
-	<div class="details">
-		<p />
-		<p />
-		<p />
-		<p />
-	</div>
+	<Details {...counters} />
+
+	<audio bind:this={bellFinish} src="./assets/sounds/bell-finish.mp3">
+		<track kind="captions" />
+	</audio>
+
+	<audio
+		bind:this={bellStart}
+		src="./assets/sounds/bell-start.mp3"
+		kind="captions">
+		<track kind="captions" />
+	</audio>
 </div>
