@@ -10,8 +10,14 @@
 	export let cycles = 4
 	export let status: 'working' | 'resting' | 'stopped'
 
-	let bellFinish: HTMLVideoElement
-	let bellStart: HTMLVideoElement
+	const createAudioPlayer = (src: string) => {
+		const audioPlayer = document.createElement('audio') as HTMLAudioElement
+		audioPlayer.src = src
+		return audioPlayer
+	}
+
+	const bellFinish = createAudioPlayer('./assets/sounds/bell-finish.mp3')
+	const bellStart = createAudioPlayer('./assets/sounds/bell-start.mp3')
 
 	let mainTime = pomodoroTimer
 	let progressTime = pomodoroTimer
@@ -110,10 +116,6 @@
 		width: 250px;
 		height: 150px;
 	}
-
-	audio {
-		display: none;
-	}
 </style>
 
 <div class="pomodoro">
@@ -142,15 +144,4 @@
 	</div>
 
 	<Details {...counters} />
-
-	<audio bind:this={bellFinish} src="./assets/sounds/bell-finish.mp3">
-		<track kind="captions" />
-	</audio>
-
-	<audio
-		bind:this={bellStart}
-		src="./assets/sounds/bell-start.mp3"
-		kind="captions">
-		<track kind="captions" />
-	</audio>
 </div>
