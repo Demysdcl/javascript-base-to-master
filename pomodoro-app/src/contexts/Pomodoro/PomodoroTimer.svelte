@@ -1,14 +1,25 @@
 <script lang="ts">
 	import Progress from '../../components/Progress.svelte'
 	import SButton from '../../components/SButton.svelte'
+	import ConfigModal from './ConfigModal.svelte'
 	import Details from './Details.svelte'
+	import { pomodoroConfig } from './store'
 	import Timer from './Timer.svelte'
 
-	export let pomodoroTimer: number
-	export let shortRestTime = 300
-	export let longRestTime = 900
-	export let cycles = 4
-	export let status: 'working' | 'resting' | 'stopped'
+	let mainTime = $pomodoroConfig.pomodoroTime
+	let progressTime = $pomodoroConfig.pomodoroTime
+	let pomodoroManager = 4
+	let cycleManager = 0
+	let interval: number
+	let playing = false
+	let show = false
+
+	const counters = {
+		completedCycles: 0,
+		completedPomodoros: 0,
+		workedTime: 0,
+		restedTime: 0,
+	}
 
 	const createAudioPlayer = (src: string) => {
 		const audioPlayer = document.createElement('audio') as HTMLAudioElement
@@ -19,24 +30,16 @@
 	const bellFinish = createAudioPlayer('./assets/sounds/bell-finish.mp3')
 	const bellStart = createAudioPlayer('./assets/sounds/bell-start.mp3')
 
-	let mainTime = pomodoroTimer
-	let progressTime = pomodoroTimer
-	let interval: number
-	let playing = false
-	let cycleManager = cycles
-
-	const counters = {
-		completedCycles: 0,
-		completedPomodoros: 0,
-		workedTime: 0,
-		restedTime: 0,
+	const configTimer = (seconds: number) => {
+		mainTime = seconds
+		progressTime = seconds
+		console.log()
 	}
 
 	const working = () => {
 		clearAndCreateInterval()
-		status = 'working'
-		mainTime = pomodoroTimer
-		progressTime = pomodoroTimer
+		$pomodoroConfig.status = 'working'
+		configTimer($pomodoroConfig.pomodoroTime)
 		bellStart.play()
 	}
 
@@ -50,56 +53,92 @@
 	}
 
 	const resting = (long: boolean) => {
-		status = 'resting'
+		$pomodoroConfig.status = 'resting'
 		bellFinish.play()
-		const getRestinValue = () => (long ? longRestTime : shortRestTime)
-		mainTime = getRestinValue()
-		progressTime = getRestinValue()
-		long && counters.completedPomodoros++
+		configTimer(
+			long ? $pomodoroConfig.longRestTime : $pomodoroConfig.shortRestTime,
+		)
+
+		if (long) {
+			counters.completedCycles++
+			cycleManager++
+		}
 		clearAndCreateInterval()
 	}
 
 	const clearAndCreateInterval = () => {
 		clearInterval(interval)
+
+		if ($pomodoroConfig.cycles === cycleManager) {
+			configTimer($pomodoroConfig.pomodoroTime)
+			$pomodoroConfig.status = 'stopped'
+			cycleManager = 0
+			return
+		}
+
 		interval = setInterval(() => {
 			if (mainTime > 0) {
 				mainTime--
-				if (status === 'working') {
-					counters.workedTime++
-				} else {
-					counters.restedTime++
-				}
+				countWorkOrRest()
 			} else {
-				if (status === 'working') {
-					counters.completedCycles++
-					configResting()
-				} else {
-					working()
-				}
+				switchWorkOrRest()
 			}
 		}, 1000)
 		playing = true
 	}
 
+	const switchWorkOrRest = () => {
+		if ($pomodoroConfig.status === 'working') {
+			counters.completedPomodoros++
+			configResting()
+		} else {
+			working()
+		}
+	}
+
+	const countWorkOrRest = () => {
+		if ($pomodoroConfig.status === 'working') {
+			counters.workedTime++
+		} else {
+			counters.restedTime++
+		}
+	}
+
 	const configResting = () => {
-		if (cycleManager > 1) {
-			cycleManager--
+		if (pomodoroManager > 1) {
+			pomodoroManager--
 			resting(false)
 		} else {
 			resting(true)
-			cycleManager = cycles
+			pomodoroManager = 4
 		}
+	}
+
+	const openModal = () => {
+		show = true
+		$pomodoroConfig.status = 'stopped'
+		clearInterval(interval)
+	}
+
+	const closeModal = () => {
+		configTimer($pomodoroConfig.pomodoroTime)
 	}
 </script>
 
 <style>
+	.pomodoro-container {
+		width: 100%;
+		height: 100%;
+	}
+
 	.pomodoro {
 		background-color: #fff;
-		margin: 50px auto;
+		margin: 0 auto;
 		padding: 20px;
 		border-radius: 4px;
 		max-width: 640px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		position: relative;
 	}
 
 	h2 {
@@ -113,35 +152,80 @@
 	}
 
 	img {
-		width: 250px;
-		height: 150px;
+		width: 50%;
+		height: 45%;
+	}
+
+	i {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		cursor: pointer;
+		transition: transform 0.3s;
+	}
+
+	i:hover {
+		transform: rotate(360deg) scale(1.2, 1.2);
+	}
+
+	@media (max-width: 650px) {
+		.pomodoro {
+			max-width: 85%;
+		}
+
+		h1 {
+			font-size: 1.4rem;
+		}
+
+		h2 {
+			font-size: 1.2rem;
+		}
+
+		i {
+			top: 10px;
+			right: 10px;
+		}
 	}
 </style>
 
-<div class="pomodoro">
-	<h1>Pomodoro Timer</h1>
-	<img src="./assets/images/pomodoro-timer.png" alt="pomodoro timer" />
+<div class="pomodoro-container">
+	<div class="pomodoro">
+		<h1>Pomodoro Timer</h1>
+		<i class="material-icons-outlined" on:click={openModal}>settings</i>
+		<img src="./assets/images/pomodoro-timer.png" alt="pomodoro timer" />
 
-	<h2>You are: {status}</h2>
+		<h2>You are: {$pomodoroConfig.status}</h2>
 
-	<Timer {mainTime} />
+		<Timer {mainTime} />
 
-	<Progress
-		max={progressTime}
-		bind:value={mainTime}
-		color={status === 'working' ? '#ef5d50' : '#41e1ba'} />
+		<Progress
+			max={progressTime}
+			bind:value={mainTime}
+			working={$pomodoroConfig.status === 'working'} />
 
-	<div class="controls">
-		<SButton title="work" className={status} on:click={working} />
+		<div class="controls">
+			<SButton
+				title="work"
+				icon
+				className={$pomodoroConfig.status}
+				on:click={working} />
 
-		<SButton title="Rest" className={status} on:click={() => resting(false)} />
+			<SButton
+				icon
+				title="hotel"
+				className={$pomodoroConfig.status}
+				on:click={() => resting(false)} />
 
-		<SButton
-			title={playing ? 'Pause' : 'Play'}
-			className={status}
-			on:click={pause}
-			style="display: {status === 'stopped' ? 'none' : 'block'}" />
+			<SButton
+				icon
+				title={playing ? 'pause' : 'play_arrow'}
+				className={$pomodoroConfig.status}
+				on:click={pause}
+				style="display: {$pomodoroConfig.status === 'stopped' ? 'none' : 'block'}" />
+		</div>
+
+		<Details {...counters} />
 	</div>
-
-	<Details {...counters} />
 </div>
+
+<ConfigModal bind:show on:close={closeModal} />

@@ -7,6 +7,13 @@
 	export let restedTime = 0
 </script>
 
+<div class="details">
+	<p><strong>Completed pomodoros:</strong> {completedPomodoros}</p>
+	<p><strong>Worked time:</strong> {secondsToFullTime(workedTime)}</p>
+	<p><strong>Rested time:</strong> {secondsToFullTime(restedTime)}</p>
+	<p><strong>Completed cycles:</strong> {completedCycles}</p>
+</div>
+
 <style>
 	.details {
 		margin: 20px 0;
@@ -15,10 +22,3 @@
 		align-items: flex-start;
 	}
 </style>
-
-<div class="details">
-	<p><strong>Completed pomodoros:</strong> {completedCycles}</p>
-	<p><strong>Worked time:</strong> {secondsToFullTime(workedTime)}</p>
-	<p><strong>Rested time:</strong> {secondsToFullTime(restedTime)}</p>
-	<p><strong>Completed cycles:</strong> {completedPomodoros}</p>
-</div>

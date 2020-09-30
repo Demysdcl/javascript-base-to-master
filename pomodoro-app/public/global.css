@@ -10,3 +10,8 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+:root {
+  --primary-color: #337aff;
+  --secondary-color: #ef5d50;
+}
