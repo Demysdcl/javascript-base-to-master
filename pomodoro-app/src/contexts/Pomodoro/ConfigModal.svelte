@@ -83,6 +83,8 @@
 			<i class="material-icons-outlined close" on:click={handleClose}>close</i>
 		</h2>
 
+		<span>Values in seconds</span>
+
 		<LabelInput title="Pomodoro time" bind:value={editable.pomodoroTime} />
 
 		<LabelInput title="Short rest time" bind:value={editable.shortRestTime} />
