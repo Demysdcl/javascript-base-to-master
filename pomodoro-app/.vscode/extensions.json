@@ -5,6 +5,7 @@
     "fivethree.vscode-svelte-snippets",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "SimonSiefke.prettier-vscode"
+    "SimonSiefke.prettier-vscode",
+    "formulahendry.auto-complete-tag",
   ]
 }
